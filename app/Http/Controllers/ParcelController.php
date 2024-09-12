@@ -29,10 +29,10 @@ class ParcelController extends Controller
        }
     }
 
-    public function create_collection_ajax(Request $request){
+    public function create_parcel_process_ajax(Request $request){
         $data = new ParcelProcessModel();
         $data->parcel_id = $request->parcel_id;
-        $data->status_process = 'collection';
+        $data->status_process = $request->status_process;
         $data->insert_at = Carbon::now();
         $data->user_id = auth()->user()->id;
         if($data->save()){

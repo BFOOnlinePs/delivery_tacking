@@ -26,4 +26,5 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
         Route::post('/create',[\App\Http\Controllers\api\ParcelController::class , 'create']);
         Route::post('/create_parcel_process',[\App\Http\Controllers\api\ParcelController::class , 'create_parcel_process']);
     });
+    Route::post('/upload',[\App\Http\Controllers\api\ImageUploadController::class , 'upload']);
 });
