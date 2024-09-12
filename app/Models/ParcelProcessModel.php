@@ -9,5 +9,5 @@ class ParcelProcessModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'parcel_process'
+    protected $table = 'parcel_process';
 }
