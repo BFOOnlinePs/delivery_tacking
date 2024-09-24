@@ -29,9 +29,9 @@
                                     <td>{{ $key->status }}</td>
                                     <td>{{ $key->insert_at }}</td>
                                     <td>
-                                        <button class="btn btn-dark btn-sm" onclick="create_parcel_process_ajax({{ $key }} , 'collection')">تحصيل</a>
-                                        <button class="btn btn-dark btn-sm" onclick="create_parcel_process_ajax({{ $key }} , 'switch')">تبديل</a>
-                                        <button class="btn btn-dark btn-sm" onclick="create_parcel_process_ajax({{ $key }} , 'returned')">ارجاع</a>
+                                        <button class="btn btn-success btn-sm m-1" onclick="create_parcel_process_ajax({{ $key }} , 'collection')">تحصيل</a>
+                                        <button class="btn btn-warning btn-sm m-1" onclick="create_parcel_process_ajax({{ $key }} , 'switch')">تبديل</a>
+                                        <button class="btn btn-danger btn-sm m-1" onclick="create_parcel_process_ajax({{ $key }} , 'returned')">ارجاع</a>
                                     </td>
                                 </tr>
                             @endforeach

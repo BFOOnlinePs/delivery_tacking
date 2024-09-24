@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class ParcelController extends Controller
 {
     public function parcel_list(Request $request){
-        $data = ParcelModel::orderBy('id','desc')->get();
+        $data = ParcelModel::with('parcel_process' , 'parcel_process.user')->where('user_id',$request->user_id)->orderBy('id','desc')->get();
         return response()->json([
             'success'=>true,
             'data'=>$data
@@ -23,6 +23,7 @@ class ParcelController extends Controller
         if($if_exist){
             return response()->json([
                 'success'=>true,
+                'status'=>'exist',
                 'message'=>'هذا الباركود موجود مسبقا'
             ]);
         }
@@ -32,6 +33,8 @@ class ParcelController extends Controller
             $data->status = 'enter';
             $data->notes = $request->notes;
             $data->insert_at = Carbon::now();
+            $data->image = $request->photo_name;
+            $data->user_id = $request->user_id;
             if($data->save()){
                 return response()->json([
                     'success'=>true,
@@ -45,23 +48,59 @@ class ParcelController extends Controller
         $parcel = ParcelModel::where('barcode',$request->barcode)->first();
         
         if($parcel){
-            $parcel_process = new ParcelProcessModel();
-            $parcel_process->parcel_id = $parcel->id;
-            $parcel_process->status_process = $request->status;
-            $parcel_process->insert_at = Carbon::now();
-            $parcel_process->user_id = $request->user_id;
-            if($parcel_process->save()){
+            $if_found = ParcelProcessModel::where('parcel_id',$parcel->id)->first();
+            if($if_found){
                 return response()->json([
                     'success'=>true,
-                    'message'=>'تم تحصيل الطرد بنجاح'
+                    'status' => 'exist',
+                    'data' => ParcelProcessModel::with('user' , 'parcel')->where('parcel_id',$parcel->id)->get(),
+                    'parcel' => $parcel
                 ]);
+            }
+            else{
+                $parcel_process = new ParcelProcessModel();
+                $parcel_process->parcel_id = $parcel->id;
+                $parcel_process->status_process = $request->status;
+                $parcel_process->insert_at = Carbon::now();
+                $parcel_process->user_id = $request->user_id;
+                if($parcel_process->save()){
+                    return response()->json([
+                        'success'=>true,
+                        'status'=>'not_exist',
+                        'message'=>'تم تحصيل الطرد بنجاح'
+                    ]);
+                }
             }
         }
         else{
             return response()->json([
                 'success'=>true,
-                'message'=>'هذا الباركود مستخدم مسبقا'
+                'status'=>'not_found',
+                'message'=>'هذا الباركود غير مسجل'
             ]);
         }
+    }
+
+    public function create_parcel_process_anyway(Request $request){
+        $parcel = ParcelModel::where('barcode',$request->barcode)->first();
+        $data = new ParcelProcessModel();
+        $data->parcel_id = $parcel->id;
+        $data->status_process = $request->status_process;
+        $data->insert_at = Carbon::now();
+        $data->user_id = $request->user_id;
+        if($data->save()){
+            return response()->json([
+                'success'=>true,
+                'message'=>'تم اضافة البيانات بنجاح'
+            ]);
+        }
+    }
+
+    public function list_parcel_process(Request $request){
+        $data = ParcelProcessModel::where('user_id',$request->user_id)->get();
+        return response()->json([
+            'success'=>true,
+            'data'=>$data  
+        ]);
     }
 }

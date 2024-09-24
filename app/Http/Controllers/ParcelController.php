@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ParcelController extends Controller
 {
     public function index(){
-        $data = ParcelModel::get();
+        $data = ParcelModel::where('user_id',auth()->user()->id)->get();
         return view('projects.parcel.index',['data'=>$data]);
     }
 
@@ -24,6 +24,7 @@ class ParcelController extends Controller
        $data->status = 'enter';
        $data->notes = $request->notes;
        $data->insert_at = Carbon::now();
+       $data->user_id = auth()->user()->id;
        if($data->save()){
             return redirect()->route('parcel.index')->with(['success'=>'تم اضافة البيانات بنجاح']);
        }

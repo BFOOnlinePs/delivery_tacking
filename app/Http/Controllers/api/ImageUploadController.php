@@ -14,7 +14,7 @@ class ImageUploadController extends Controller
     
             // Get the desired name from the request
             $desiredName = $request->input('name'); // Name provided from frontend
-            $fullFileName = time().$image->getClientOriginalExtension();
+            $fullFileName = time().'.'.$image->getClientOriginalExtension();
     
             // Store the file with the new name in the 'uploads' directory
             $path = $image->storeAs('uploads', $fullFileName, 'public');
@@ -27,7 +27,7 @@ class ImageUploadController extends Controller
             return response()->json([
                 'success'=>true,
                 'message' => 'Image uploaded and renamed successfully!',
-                'image' => $path,
+                'image' => $fullFileName,
             ]);
         }
 

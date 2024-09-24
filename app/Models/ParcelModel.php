@@ -10,4 +10,8 @@ class ParcelModel extends Model
     use HasFactory;
 
     protected $table = 'parcel';
+
+    public function parcel_process(){
+        return $this->hasMany(ParcelProcessModel::class , 'parcel_id' , 'id');
+    }
 }
