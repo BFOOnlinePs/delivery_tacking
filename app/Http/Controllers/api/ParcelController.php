@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class ParcelController extends Controller
 {
     public function parcel_list(Request $request){
-        $data = ParcelModel::with('parcel_process' , 'parcel_process.user')->where('user_id',$request->user_id)->orderBy('id','desc')->get();
+        $data = ParcelModel::with('parcel_process' , 'parcel_process.user' , 'lastStatusProcess')->where('user_id',$request->user_id)->orderBy('id','desc')->get();
         return response()->json([
             'success'=>true,
             'data'=>$data

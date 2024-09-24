@@ -14,4 +14,10 @@ class ParcelModel extends Model
     public function parcel_process(){
         return $this->hasMany(ParcelProcessModel::class , 'parcel_id' , 'id');
     }
+
+    public function lastStatusProcess()
+    {
+        return $this->hasOne(ParcelProcessModel::class, 'parcel_id', 'id')
+                    ->latest();
+    }
 }
