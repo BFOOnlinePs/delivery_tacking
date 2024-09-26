@@ -34,4 +34,15 @@ Route::group(['middleware'=>'auth'],function(){
     });
 
     Route::get('logout', [\App\Http\Controllers\UserController::class , 'logout'])->name('logout');
+
+    Route::get('generate', function () {
+        \Illuminate\Support\Facades\Artisan::call('storage:link');
+        echo 'ok';
+    });
+    
 });
+
+Route::get('/privacy_policy', function () {
+    return view('privacy_and_policy');
+});
+
