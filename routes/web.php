@@ -33,6 +33,8 @@ Route::group(['middleware'=>'auth'],function(){
         Route::post('/create_parcel_process_ajax', [App\Http\Controllers\ParcelController::class, 'create_parcel_process_ajax'])->name('parcel.create_parcel_process_ajax');
     });
 
+
+
     Route::get('logout', [\App\Http\Controllers\UserController::class , 'logout'])->name('logout');
 
     Route::get('generate', function () {
@@ -44,5 +46,9 @@ Route::group(['middleware'=>'auth'],function(){
 
 Route::get('/privacy_policy', function () {
     return view('privacy_and_policy');
+});
+
+Route::get('/support', function () {
+    return view('projects.support.support_page');
 });
 
