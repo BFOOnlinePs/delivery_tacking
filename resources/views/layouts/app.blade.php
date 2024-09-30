@@ -33,6 +33,17 @@
   <!-- Custom style for RTL -->
   <link rel="stylesheet" href="{{ asset('assets/dist/css/custom.css') }}">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      font-family: "Tajawal", system-ui;
+      font-weight: 300;
+      font-style: normal;
+    }
+  </style>
   @yield('style')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

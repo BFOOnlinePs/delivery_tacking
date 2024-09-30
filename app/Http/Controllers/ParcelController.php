@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\CollectionExcel;
 use App\Models\ParcelModel;
 use App\Models\ParcelProcessModel;
+use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
 use Carbon\Carbon;
+use DebugBar\DebugBar;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ParcelController extends Controller
 {
@@ -42,5 +46,13 @@ class ParcelController extends Controller
                 'message'=>'تم تعديل البيانات بنجاح'
             ]);
         }
+    }
+
+    public function collection_excel(Request $request){
+        $importedData = Excel::toArray(new CollectionExcel, $request->file('collection_excel'));
+
+        $data = $importedData[0];
+        FacadesDebugbar::info($data);
+        return response()->json(['data' => $data]);    
     }
 }

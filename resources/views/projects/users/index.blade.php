@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <a class="btn btn-dark btn-sm" href="{{ route('parcel.add') }}">اضافة مستخدم</a>
+                    <a class="btn btn-dark btn-sm" href="{{ route('users.add') }}">اضافة مستخدم</a>
                 </div>
             </div>
         </div>
@@ -27,6 +27,8 @@
                                     <td>{{ $key->email }}</td>
                                     <td>{{ $key->user_role }}</td>
                                     <td>
+                                        <a href="{{ route('users.edit', ['id' => $key->id]) }}"
+                                            class="btn btn-sm btn-success"><span class="fa fa-edit"></span></a>
                                     </td>
                                 </tr>
                             @endforeach

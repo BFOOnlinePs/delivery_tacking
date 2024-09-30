@@ -25,12 +25,15 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('/index', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
         Route::get('/add', [App\Http\Controllers\UserController::class, 'add'])->name('users.add');
         Route::post('/create', [App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+        Route::get('edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
+        Route::post('update', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
     });
     Route::group(['prefix'=>'parcel'],function(){
         Route::get('/index', [App\Http\Controllers\ParcelController::class, 'index'])->name('parcel.index');
         Route::get('/add', [App\Http\Controllers\ParcelController::class, 'add'])->name('parcel.add');
         Route::post('/create', [App\Http\Controllers\ParcelController::class, 'create'])->name('parcel.create');
         Route::post('/create_parcel_process_ajax', [App\Http\Controllers\ParcelController::class, 'create_parcel_process_ajax'])->name('parcel.create_parcel_process_ajax');
+        Route::post('/collection_excel', [App\Http\Controllers\ParcelController::class, 'collection_excel'])->name('parcel.collection_excel');
     });
 
 
