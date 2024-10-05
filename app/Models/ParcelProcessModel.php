@@ -12,6 +12,10 @@ class ParcelProcessModel extends Model
 
     protected $table = 'parcel_process';
 
+    protected $fillable = [
+        'parcel_id','status_process','insert_at','user_id'
+    ];
+
     public function user(){
         return $this->belongsTo(User::class , 'user_id' , 'id');
     }

@@ -34,6 +34,8 @@ Route::group(['middleware'=>'auth'],function(){
         Route::post('/create', [App\Http\Controllers\ParcelController::class, 'create'])->name('parcel.create');
         Route::post('/create_parcel_process_ajax', [App\Http\Controllers\ParcelController::class, 'create_parcel_process_ajax'])->name('parcel.create_parcel_process_ajax');
         Route::post('/collection_excel', [App\Http\Controllers\ParcelController::class, 'collection_excel'])->name('parcel.collection_excel');
+        Route::post('/returned_excel', [App\Http\Controllers\ParcelController::class, 'returned_excel'])->name('parcel.returned_excel');
+        Route::post('/switch_excel', [App\Http\Controllers\ParcelController::class, 'switch_excel'])->name('parcel.switch_excel');
     });
 
 
