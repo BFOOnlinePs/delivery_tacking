@@ -36,6 +36,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::post('/collection_excel', [App\Http\Controllers\ParcelController::class, 'collection_excel'])->name('parcel.collection_excel');
         Route::post('/returned_excel', [App\Http\Controllers\ParcelController::class, 'returned_excel'])->name('parcel.returned_excel');
         Route::post('/switch_excel', [App\Http\Controllers\ParcelController::class, 'switch_excel'])->name('parcel.switch_excel');
+        Route::get('/delete/{id}', [App\Http\Controllers\ParcelController::class, 'delete'])->name('parcel.delete');
     });
 
 

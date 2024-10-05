@@ -19,19 +19,33 @@ class ParcelController extends Controller
     }
 
     public function add(){
-        return view('projects.parcel.add');
+        $data = ParcelModel::orderBy('id','desc')->where('user_id',auth()->user()->id)->get();
+        return view('projects.parcel.add',['data'=>$data]);
     }
 
     public function create(Request $request){
-       $data = new ParcelModel();
-       $data->barcode = $request->barcode;
-       $data->status = 'enter';
-       $data->notes = $request->notes;
-       $data->insert_at = Carbon::now();
-       $data->user_id = auth()->user()->id;
-       if($data->save()){
-            return redirect()->route('parcel.index')->with(['success'=>'تم اضافة البيانات بنجاح']);
-       }
+        $check_if_found = ParcelModel::where('barcode',$request->barcode)->where('user_id',auth()->user()->id)->first();
+        if(empty($check_if_found)){
+            $data = new ParcelModel();
+            $data->barcode = $request->barcode;
+            $data->status = 'enter';
+            $data->notes = $request->notes;
+            $data->insert_at = Carbon::now();
+            $data->user_id = auth()->user()->id;
+            if($data->save()){
+                 return redirect()->route('parcel.add')->with(['success'=>'تم اضافة البيانات بنجاح' , 'barcode'=>$request->barcode , 'timer'=>3000]);
+            }
+        }
+        else{
+            return redirect()->route('parcel.add')->with(['fail'=>'هذا الباركود موجود مسبقا' , 'barcode'=>$request->barcode , 'timer'=>3000]);
+        }
+    }
+
+    public function delete($id){
+        $data = ParcelModel::find($id);
+        if($data->delete()){
+            return redirect()->route('parcel.add')->with(['success'=>'تم حذف البيانات بنجاح' , 'timer'=>3000]);
+        }
     }
 
     public function create_parcel_process_ajax(Request $request){
