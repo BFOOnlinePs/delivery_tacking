@@ -4,6 +4,7 @@
         <div class="col-md-12">
             @include('message.fail_message')
             @include('message.success_message')
+            @include('message.warning_message')
         </div>
     </div>
     @include('projects.parcel.menu')
@@ -12,24 +13,21 @@
             <div class="card">
                 <div class="row">
                     <div class="col-md-12">
-                        <form tabindex="1" action="{{ route('parcel.create') }}" method="post"
+                        <form tabindex="1" action="{{ route('parcel.create_parcel_process') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" value="switch" name="status_process">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h5 class="text-center">اضافة طرد جديد</h5>
+                                        <h5 class="text-center">تبديل طرد</h5>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">الباركود</label>
                                             <input type="text" id="barcode" name="barcode" class="form-control">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">الملاحظات</label>
-                                            <textarea name="notes" id="" cols="30" rows="3" class="form-control"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-sm btn-success">اضافة الطرد</button>
+                                        <button type="submit" class="btn btn-sm btn-warning">تبديل الطرد</button>
                                     </div>
                                 </div>
                             </div>
@@ -62,9 +60,11 @@
                                         @else
                                             @foreach ($data as $key)
                                                 <tr>
-                                                    <td>{{ $key->barcode }}</td>
-                                                    <td>{{ $key->notes }}</td>
-                                                    <td>{{ $key->status }}</td>
+                                                    <td>{{ $key->parcel->barcode }}</td>
+                                                    <td>{{ $key->parcel->notes }}</td>
+                                                    <td>
+                                                        تبديل
+                                                    </td>
                                                     <td>{{ $key->insert_at }}</td>
                                                     <td>
                                                         <a href="{{ route('parcel.delete', ['id' => $key->id]) }}"

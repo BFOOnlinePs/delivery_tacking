@@ -250,4 +250,85 @@ public function switch_excel(Request $request)
         'exception_records' => $exceptionRecords 
     ]);    
 }
+
+public function add_collection_page(){
+    $data = ParcelProcessModel::with('parcel')->where('status_process','collection')->where('user_id',auth()->user()->id)->get();
+    return view('projects.parcel.add_collection',['data'=>$data]);
+}
+
+public function add_return_page(){
+    $data = ParcelProcessModel::with('parcel')->where('status_process','returned')->where('user_id',auth()->user()->id)->get();
+    return view('projects.parcel.add_return',['data'=>$data]);
+}
+
+public function add_switch_page(){
+    $data = ParcelProcessModel::with('parcel')->where('status_process','switch')->where('user_id',auth()->user()->id)->get();
+    return view('projects.parcel.add_switch',['data'=>$data]);
+}
+
+
+public function create_parcel_process(Request $request){
+    $check_if_found = ParcelModel::where('barcode',$request->barcode)->where('user_id',auth()->user()->id)->first();
+    if(empty($check_if_found)){
+        // return response()->json([
+        //     'success'=>true,
+        //     'status'=>'not_found',
+        //     'message'=>'هذا الكود غير موجود'
+        // ]);
+        return redirect()->back()->with(['fail'=>'هذا الباركود غير موجود' , 'barcode'=>$request->barcode , 'timer'=>3000]);
+    }
+    else {
+        $check_parcel_process_is_exist = ParcelProcessModel::where('parcel_id', $check_if_found->id)->first();
+        
+        if (empty($check_parcel_process_is_exist)) {
+            // إضافة البيانات إذا لم يكن موجودًا
+            $data = new ParcelProcessModel();
+            $data->status_process = $request->status_process;
+            $data->insert_at = Carbon::now();
+            $data->user_id = auth()->user()->id;
+            if ($data->save()) {
+                return redirect()->back()->with([
+                    'success' => 'تم اضافة البيانات بنجاح',
+                    'barcode' => $request->barcode,
+                    'timer' => 3000
+                ]);
+            }
+        } else {
+            // إظهار رسالة تأكيد للمستخدم
+            return redirect()->back()->with([
+                'warning' => 'هذا الباركود موجود مسبقًا، هل تريد إضافته على أي حال؟',
+                'barcode' => $request->barcode,
+                'status_process' => $request->status_process,
+                'timer' => 3000
+            ]);
+        }
+    }
+}
+
+
+public function confirm_add_parcel_process(Request $request) {
+    $check_if_found = ParcelModel::where('barcode', $request->barcode)
+                                ->where('user_id', auth()->user()->id)
+                                ->first();
+    
+    if ($check_if_found) {
+        $data = new ParcelProcessModel();
+        $data->status_process = $request->status_process;
+        $data->insert_at = Carbon::now();
+        $data->parcel_id = $check_if_found->id;
+        $data->user_id = auth()->user()->id;
+        if ($data->save()) {
+            return redirect()->back()->with([
+                'success' => 'تم اضافة البيانات بنجاح',
+                'barcode' => $request->barcode,
+                'timer' => 3000
+            ]);
+        }
+    }
+
+    return redirect()->route('parcel.add_collection_page')->with([
+        'fail' => 'حدث خطأ أثناء الإضافة.',
+        'timer' => 3000
+    ]);
+}
 }

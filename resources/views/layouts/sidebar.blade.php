@@ -27,7 +27,7 @@
                 @if (auth()->user()->user_role == 'admin')
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <i class="nav-icon fa fa-users"></i>
                             <p>
                                 المستخدمين
                                 <i class="right fas fa-angle-left"></i>
@@ -45,7 +45,7 @@
                 @endif
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fa fa-box"></i>
                         <p>
                             الطرود
                             <i class="right fas fa-angle-left"></i>
@@ -53,9 +53,38 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('parcel.index') }}" class="nav-link">
+                            <a href="{{ route('parcel.add') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>قائمة الطرود</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-file-excel"></i>
+                        <p>
+                            اكسيل
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('parcel.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>تحصيل اكسيل</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('parcel.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>استرداد اكسيل</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('parcel.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ترجيع اكسيل</p>
                             </a>
                         </li>
                     </ul>

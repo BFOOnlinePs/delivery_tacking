@@ -37,6 +37,11 @@ Route::group(['middleware'=>'auth'],function(){
         Route::post('/returned_excel', [App\Http\Controllers\ParcelController::class, 'returned_excel'])->name('parcel.returned_excel');
         Route::post('/switch_excel', [App\Http\Controllers\ParcelController::class, 'switch_excel'])->name('parcel.switch_excel');
         Route::get('/delete/{id}', [App\Http\Controllers\ParcelController::class, 'delete'])->name('parcel.delete');
+        Route::get('/add_collection_page', [App\Http\Controllers\ParcelController::class, 'add_collection_page'])->name('parcel.add_collection_page');
+        Route::get('/add_return_page', [App\Http\Controllers\ParcelController::class, 'add_return_page'])->name('parcel.add_return_page');
+        Route::get('/add_switch_page', [App\Http\Controllers\ParcelController::class, 'add_switch_page'])->name('parcel.add_switch_page');
+        Route::post('/create_parcel_process', [App\Http\Controllers\ParcelController::class, 'create_parcel_process'])->name('parcel.create_parcel_process');
+        Route::post('/confirm_add_parcel_process', [App\Http\Controllers\ParcelController::class, 'confirm_add_parcel_process'])->name('parcel.confirm_add_parcel_process');
     });
 
 
