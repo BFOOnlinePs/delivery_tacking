@@ -42,9 +42,9 @@ class ParcelController extends Controller
     }
 
     public function delete($id){
-        $data = ParcelModel::find($id);
+        $data = ParcelProcessModel::find($id);
         if($data->delete()){
-            return redirect()->route('parcel.add')->with(['success'=>'تم حذف البيانات بنجاح' , 'timer'=>3000]);
+            return redirect()->back()->with(['success'=>'تم حذف البيانات بنجاح' , 'timer'=>3000]);
         }
     }
 
