@@ -62,11 +62,11 @@
                                             @foreach ($data as $key)
                                                 <tr>
                                                     <td>{{ $key->parcel->barcode ?? '' }}</td>
-                                                    <td>{{ $key->parcel->notes }}</td>
+                                                    <td>{{ $key->parcel->notes ?? '' }}</td>
                                                     <td>
                                                         تحصيل
                                                     </td>
-                                                    <td>{{ $key->insert_at }}</td>
+                                                    <td>{{ $key->insert_at ?? '' }}</td>
                                                     <td>
                                                         <a href="{{ route('parcel.delete', ['id' => $key->id]) }}"
                                                             class="text-danger"><span class="fa fa-trash"></span></a>
