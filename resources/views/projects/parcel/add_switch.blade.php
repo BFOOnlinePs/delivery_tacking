@@ -25,7 +25,8 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">الباركود</label>
-                                            <input type="text" id="barcode" name="barcode" class="form-control">
+                                            <input required type="text" id="barcode" name="barcode"
+                                                class="form-control">
                                         </div>
                                         <button type="submit" class="btn btn-sm btn-warning">تبديل الطرد</button>
                                     </div>
