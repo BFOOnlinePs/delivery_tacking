@@ -286,6 +286,7 @@ public function create_parcel_process(Request $request){
             $data->status_process = $request->status_process;
             $data->insert_at = Carbon::now();
             $data->user_id = auth()->user()->id;
+            $data->parcel_id = $check_if_found->id;
             if ($data->save()) {
                 return redirect()->back()->with([
                     'success' => 'تم اضافة البيانات بنجاح',
