@@ -43,6 +43,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
+                                <h6>تم استبداله اليوم</h6>
                                 <table class="table text-left table-sm table-striped table-bordered">
                                     <thead class="bg-dark">
                                         <tr>

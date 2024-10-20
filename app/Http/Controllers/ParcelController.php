@@ -19,8 +19,16 @@ class ParcelController extends Controller
     }
 
     public function add(){
-        $data = ParcelModel::orderBy('id','desc')->where('user_id',auth()->user()->id)->get();
+        $data = ParcelModel::orderBy('id','desc')->where('user_id',auth()->user()->id)->whereDate('insert_at',Carbon::today())->get();
         return view('projects.parcel.add',['data'=>$data]);
+    }
+
+    public function delete_parcel($id){
+        $data = ParcelModel::find($id);
+        if($data->delete()){
+            return redirect()->back()->with(['success'=>'تم حذف البيانات بنجاح' , 'timer'=>3000]);
+        }
+        return redirect()->back()->with(['fail'=>'هناك مشكلة فى عملية الحذف' , 'timer'=>3000]);
     }
 
     public function create(Request $request){
@@ -252,17 +260,17 @@ public function switch_excel(Request $request)
 }
 
 public function add_collection_page(){
-    $data = ParcelProcessModel::with('parcel')->where('status_process','collection')->where('user_id',auth()->user()->id)->get();
+    $data = ParcelProcessModel::with('parcel')->where('status_process','collection')->where('user_id',auth()->user()->id)->whereDate('insert_at',Carbon::today())->get();
     return view('projects.parcel.add_collection',['data'=>$data]);
 }
 
 public function add_return_page(){
-    $data = ParcelProcessModel::with('parcel')->where('status_process','returned')->where('user_id',auth()->user()->id)->get();
+    $data = ParcelProcessModel::with('parcel')->where('status_process','returned')->where('user_id',auth()->user()->id)->whereDate('insert_at',Carbon::today())->get();
     return view('projects.parcel.add_return',['data'=>$data]);
 }
 
 public function add_switch_page(){
-    $data = ParcelProcessModel::with('parcel')->where('status_process','switch')->where('user_id',auth()->user()->id)->get();
+    $data = ParcelProcessModel::with('parcel')->where('status_process','switch')->where('user_id',auth()->user()->id)->whereDate('insert_at',Carbon::today())->get();
     return view('projects.parcel.add_switch',['data'=>$data]);
 }
 

@@ -44,6 +44,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
+                                <h6>تم اضافته اليوم</h6>
                                 <table class="table text-left table-sm table-striped table-bordered">
                                     <thead class="bg-dark">
                                         <tr>
@@ -67,7 +68,7 @@
                                                     <td>{{ $key->status }}</td>
                                                     <td>{{ $key->insert_at }}</td>
                                                     <td>
-                                                        <a href="{{ route('parcel.delete', ['id' => $key->id]) }}"
+                                                        <a href="{{ route('parcel.delete_parcel', ['id' => $key->id]) }}"
                                                             class="text-danger"><span class="fa fa-trash"></span></a>
                                                     </td>
                                                 </tr>

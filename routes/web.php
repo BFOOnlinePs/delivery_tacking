@@ -32,6 +32,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('/index', [App\Http\Controllers\ParcelController::class, 'index'])->name('parcel.index');
         Route::get('/add', [App\Http\Controllers\ParcelController::class, 'add'])->name('parcel.add');
         Route::post('/create', [App\Http\Controllers\ParcelController::class, 'create'])->name('parcel.create');
+        Route::get('/delete_parcel/{id}', [App\Http\Controllers\ParcelController::class, 'delete_parcel'])->name('parcel.delete_parcel');
         Route::post('/create_parcel_process_ajax', [App\Http\Controllers\ParcelController::class, 'create_parcel_process_ajax'])->name('parcel.create_parcel_process_ajax');
         Route::post('/collection_excel', [App\Http\Controllers\ParcelController::class, 'collection_excel'])->name('parcel.collection_excel');
         Route::post('/returned_excel', [App\Http\Controllers\ParcelController::class, 'returned_excel'])->name('parcel.returned_excel');
@@ -43,8 +44,12 @@ Route::group(['middleware'=>'auth'],function(){
         Route::post('/create_parcel_process', [App\Http\Controllers\ParcelController::class, 'create_parcel_process'])->name('parcel.create_parcel_process');
         Route::post('/confirm_add_parcel_process', [App\Http\Controllers\ParcelController::class, 'confirm_add_parcel_process'])->name('parcel.confirm_add_parcel_process');
     });
-
-
+    
+    Route::group(['prefix'=>'report'],function(){
+        Route::get('/index', [App\Http\Controllers\ReportController::class, 'index'])->name('report.index');
+        Route::post('/report_list', [App\Http\Controllers\ReportController::class, 'report_list'])->name('report.report_list');
+        Route::post('/report_excel', [App\Http\Controllers\ReportController::class, 'report_excel'])->name('report.report_excel');
+    });
 
     Route::get('logout', [\App\Http\Controllers\UserController::class , 'logout'])->name('logout');
 
